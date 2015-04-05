@@ -16,7 +16,7 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.postgresql" % "postgresql" % "9.4-1201-jdbc41"
+  "io.spray"       %% "spray-json" % "1.3.1"
 )
 
 name in Universal := name.value

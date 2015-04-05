@@ -3,7 +3,28 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
+GET        /                               controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET        /assets/*file                   controllers.Assets.at(path="/public", file)
+
+# static routing
+GET        /static/hello                   controllers.StaticRouting.hello
+GET        /static/withRequest             controllers.StaticRouting.withRequest
+GET        /static/implRequest             controllers.StaticRouting.withImplicitRequest
+GET        /static/bodyParser              controllers.StaticRouting.withBodyParser
+GET        /static/explicitResult          controllers.StaticRouting.explicitResult
+GET        /static/notfound                controllers.StaticRouting.notFound
+GET        /static/pageNotFound            controllers.StaticRouting.pageNotFound
+GET        /static/badRequest              controllers.StaticRouting.badRequest
+GET        /static/oops                    controllers.StaticRouting.oops
+GET        /static/anyStatus               controllers.StaticRouting.anyStatus
+GET        /static/redirect                controllers.StaticRouting.redirect
+GET        /static/movedPermanently        controllers.StaticRouting.movedPermanently
+GET        /static/dummy                   controllers.StaticRouting.dummy
+
+GET        /clients                        controllers.Clients.all
+GET        /clients/params                 controllers.Clients.getById(id: Int)
+GET        /clients/:id                    controllers.Clients.getById(id: Int)
+
+GET        /reverse/hello                  controllers.Reverse.toHelloWorld
