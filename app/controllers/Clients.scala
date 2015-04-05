@@ -80,13 +80,13 @@ object Clients extends Controller {
         .sortWith(_.id < _.id)
         .toJson
         .prettyPrint
-    ).as("application/json")
+    ).as(JSON)
   }
 
   def getById(id: Int) = Action {
     clients
       .get(id)
-      .map(c => Ok(c.toJson.prettyPrint).as("application/json"))
+      .map(c => Ok(c.toJson.prettyPrint).as(JSON))
       .getOrElse(NotFound)
   }
 }
