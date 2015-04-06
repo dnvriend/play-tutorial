@@ -1,0 +1,13 @@
+@(userForm: Form[forms.UserAddressData])
+@import helper._
+
+@*
+ Note: When you are using nested data, the form values sent by
+       the browser must be named address.street, address.city, etc.
+*@
+@helper.form(action = routes.User.postNested()) {
+    @helper.inputText(userForm("name"))
+    @helper.inputText(userForm("address.street"))
+    @helper.inputText(userForm("address.city"))
+    <input type="submit" value="Submit" />
+}

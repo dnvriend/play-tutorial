@@ -12,5 +12,8 @@ POST       /second/user                   controllers.User.postUserSecond
 GET        /third/user                    controllers.User.editUserThird
 POST       /third/user                    controllers.User.postUserThird
 
-GET        /fourth/choice                 controllers.User.editUserFourth
-POST       /fourth/choice                 controllers.User.postUserFourth
+GET        /fourth/choice                 controllers.User.editChoice
+POST       /fourth/choice                 controllers.User.postChoice
+
+GET        /fifth/nested                  controllers.User.editNested
+POST       /fifth/nested                  controllers.User.postNested

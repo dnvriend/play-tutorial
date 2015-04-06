@@ -70,12 +70,12 @@ object User extends Controller {
     )
   }
 
-  def editUserFourth() = Action {
+  def editChoice() = Action {
     val filledForm = pillChoiceForm.fill(forms.PillChoiceData(name = "Neo", pill = ""))
     Ok(views.html.fourth.userForm(filledForm, pillChoices))
   }
 
-  def postUserFourth() = Action { implicit request =>
+  def postChoice() = Action { implicit request =>
     pillChoiceForm.bindFromRequest().fold(
       (formWithErrors: Form[forms.PillChoiceData]) => {
         BadRequest(views.html.fourth.userForm(formWithErrors, pillChoices))
@@ -83,6 +83,22 @@ object User extends Controller {
       (pcd: forms.PillChoiceData) => {
         val pillChoice = models.PillChoice(pcd.name, pcd.pill)
         Ok(views.html.fourth.userDetail(pillChoice))
+      }
+    )
+  }
+
+  def editNested() = Action {
+    Ok(views.html.fifth.nestedForm(userFormNested))
+  }
+
+  def postNested() = Action { implicit request =>
+    userFormNested.bindFromRequest().fold(
+      formWithErrors => {
+        BadRequest(views.html.fifth.nestedForm(userFormNested))
+      },
+      nd => {
+        val userAddress = models.UserAddress(nd.name, models.Address(nd.address.street, nd.address.city))
+        Ok(views.html.fifth.nestedDetail(userAddress))
       }
     )
   }
@@ -128,5 +144,16 @@ object UserForms {
       "name" -> nonEmptyText(maxLength = 50),
       "pill" -> nonEmptyText
     )(forms.PillChoiceData.apply)(forms.PillChoiceData.unapply)
+  )
+
+  // note the nested mapping and nested apply/unapply
+  val userFormNested: Form[forms.UserAddressData] = Form(
+    mapping(
+      "name" -> text,
+      "address" -> mapping(
+        "street" -> text,
+        "city" -> text
+      )(forms.AddressData.apply)(forms.AddressData.unapply)
+    )(forms.UserAddressData.apply)(forms.UserAddressData.unapply)
   )
 }

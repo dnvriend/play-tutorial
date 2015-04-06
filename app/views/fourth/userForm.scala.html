@@ -1,7 +1,7 @@
 @(userForm: Form[forms.PillChoiceData], choices: List[String])
 @import helper._
 
-@helper.form(action = routes.User.postUserFourth()) {
+@helper.form(action = routes.User.postChoice()) {
     @inputText(userForm("name"))
     @*see: https://www.playframework.com/documentation/2.3.x/api/scala/index.html#views.html.helper.select$ *@
     @select(field = userForm("pill"), options = options(choices))

@@ -18,3 +18,6 @@ case class UserDataMoreFields(firstName: String,
 
 case class PillChoiceData (name: String, pill: String)
 
+case class AddressData(street: String, city: String)
+
+case class UserAddressData(name: String, address: AddressData)

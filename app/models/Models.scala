@@ -17,3 +17,7 @@ case class UserMoreFields(firstName: String,
                           optIn: Option[Boolean])
 
 case class PillChoice(name: String, pill: String)
+
+case class Address(street: String, city: String)
+
+case class UserAddress(name: String, address: Address)
