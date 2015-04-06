@@ -6,8 +6,11 @@
 GET        /first/user                    controllers.User.editUserFirst
 POST       /first/user                    controllers.User.postUserFirst
 
-GET        /second/user                    controllers.User.editUserSecond
-POST       /second/user                    controllers.User.postUserSecond
+GET        /second/user                   controllers.User.editUserSecond
+POST       /second/user                   controllers.User.postUserSecond
 
 GET        /third/user                    controllers.User.editUserThird
 POST       /third/user                    controllers.User.postUserThird
+
+GET        /fourth/choice                 controllers.User.editUserFourth
+POST       /fourth/choice                 controllers.User.postUserFourth

@@ -1,13 +1,12 @@
 package controllers
 
-import java.util.TimeZone
-
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
 
 object User extends Controller {
   import UserForms._
+  import ChoiceModels._
 
   def editUserFirst() = Action {
     Ok(views.html.first.userForm(userForm))
@@ -46,9 +45,10 @@ object User extends Controller {
   def editUserThird() = Action {
     Ok(views.html.third.userForm(userFormWithMoreFields))
   }
+
   def postUserThird() = Action { implicit request =>
     userFormWithMoreFields.bindFromRequest().fold(
-      formWithErrors => {
+      (formWithErrors: Form[forms.UserDataMoreFields]) => {
         BadRequest(views.html.third.userForm(formWithErrors))
       },
       (ud: forms.UserDataMoreFields) => {
@@ -69,6 +69,27 @@ object User extends Controller {
       }
     )
   }
+
+  def editUserFourth() = Action {
+    val filledForm = pillChoiceForm.fill(forms.PillChoiceData(name = "Neo", pill = ""))
+    Ok(views.html.fourth.userForm(filledForm, pillChoices))
+  }
+
+  def postUserFourth() = Action { implicit request =>
+    pillChoiceForm.bindFromRequest().fold(
+      (formWithErrors: Form[forms.PillChoiceData]) => {
+        BadRequest(views.html.fourth.userForm(formWithErrors, pillChoices))
+      },
+      (pcd: forms.PillChoiceData) => {
+        val pillChoice = models.PillChoice(pcd.name, pcd.pill)
+        Ok(views.html.fourth.userDetail(pillChoice))
+      }
+    )
+  }
+}
+
+object ChoiceModels {
+  val pillChoices = List("Red", "Blue")
 }
 
 object UserForms {
@@ -101,4 +122,11 @@ object UserForms {
         "optIn" -> optional(boolean)
       )(forms.UserDataMoreFields.apply)(forms.UserDataMoreFields.unapply)
     )
+
+  val pillChoiceForm: Form[forms.PillChoiceData] = Form(
+    mapping(
+      "name" -> nonEmptyText(maxLength = 50),
+      "pill" -> nonEmptyText
+    )(forms.PillChoiceData.apply)(forms.PillChoiceData.unapply)
+  )
 }

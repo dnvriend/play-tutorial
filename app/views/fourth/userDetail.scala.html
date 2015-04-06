@@ -1,0 +1,14 @@
+@(model: models.PillChoice)
+
+<table>
+    <tr><td>Name</td><td>@model.name</td></tr>
+    <tr><td>Pill</td><td>@model.pill</td></tr>
+</table>
+
+@{
+    model.pill.toLowerCase match {
+        case "red" => <p>You choose reality, you are the one!</p>
+        case _ => <p>You choose ignorance, go back to sleep...</p>
+    }
+}
+

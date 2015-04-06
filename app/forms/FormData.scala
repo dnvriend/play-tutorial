@@ -2,6 +2,8 @@ package forms
 
 import org.joda.time.LocalDate
 
+case class UserData(name: String, age: Int)
+
 case class UserDataMoreFields(firstName: String,
                               lastName: String,
                               age: Int,
@@ -13,3 +15,6 @@ case class UserDataMoreFields(firstName: String,
                               employed: Boolean,
                               married: Boolean,
                               optIn: Option[Boolean])
+
+case class PillChoiceData (name: String, pill: String)
+
