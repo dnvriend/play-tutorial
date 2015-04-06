@@ -1,0 +1,8 @@
+@(form: Form[Int])
+
+<h3>Show primes under:</h3>
+@helper.form(action = routes.Application.showPrime()) {
+    @helper.inputText(form("max"))
+    <input type="submit" value="submit" />
+}
+

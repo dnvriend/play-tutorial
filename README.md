@@ -1,15 +1,46 @@
 Playframework-tutorial
 ======================
-This is a study project on how to use the play framework. It uses branches to switch the focus from one subject to another.
-It basically covers the playframework documentation and shows the basics. I would advice (I have done so) getting the following
-books (I don't get any money from Manning or Typesafe) and study them:
+Before beginning analyzing this branch, please read:
 
-* [Play for Scala](http://typesafe.com/resources/e-book/play-for-scala)
-* [Reactive Web Applications with Play](http://info.typesafe.com/EBK-20XX-Reactive-Web-Applications-with-Play_L.html?lst=PPS&lsd=EBK-20XX-Reactive-Web-Applications-with-Play)
+* [Play - Handling asynchronous results](https://www.playframework.com/documentation/2.3.x/ScalaAsync)
 
-Have fun!
+# Introduction
+The most important part to take away from the text is the following:
 
-### Available branches
-* __ActionsControllersAndResults__: Shows how to use Actions, Controllers, Results and Routing 
-* __TemplateEngine__: What the templating engine is and how to use it 
-* __Forms__: How to use forms
+* Don't ever block,
+* When you need to block, create a custom execution context schedule Futures to run from that one,
+* When using JDBC databases, use Postgres :) and use [Maurício Linhares - Postgres Async driver](https://github.com/mauricio/postgresql-async),
+* Always import:
+
+        import play.api.libs.concurrent.Execution.Implicits.defaultContext
+
+* There is only a single kind of Action (remember, controllers are Action generators?), which is asynchronous, so there
+ is no blocking (synchronous) Action. So all actions we created earlier are non-blocking
+ 
+        val echo = Action { request =>
+          Ok("Got request [" + request + "]")
+        }
+ 
+* Use the `Action.async` builder when you use APIs that return a `scala.concurrent.Future`.
+
+        import play.api.libs.concurrent.Execution.Implicits.defaultContext
+        import scala.concurrent.Future
+        
+        def index = Action.async {
+          val futureInt = Future { intensiveComputation() }
+          futureInt.map(i => Ok("Got result: " + i))
+        }
+
+* Timeouts should be handled propertly:
+
+        import play.api.libs.concurrent.Execution.Implicits.defaultContext
+        import scala.concurrent.duration._
+        
+        def index = Action.async {
+          val futureInt = scala.concurrent.Future { intensiveComputation() }
+          val timeoutFuture = play.api.libs.concurrent.Promise.timeout("Oops", 1.second)
+          Future.firstCompletedOf(Seq(futureInt, timeoutFuture)).map {
+            case i: Int => Ok("Got result: " + i)
+            case t: String => InternalServerError(t)
+          }
+        }

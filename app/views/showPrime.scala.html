@@ -1,0 +1,16 @@
+@(max: Int, primes: (List[Int], Long))
+
+<p>It took: @primes._2 msec</p>
+@{
+    def res(stat: String) = Html(s"Stat: $stat on my Macbook@2009/2.13GHz Core Duo/4GB/SSD/White")
+    max match {
+        case 5000 => res("14 msec")
+        case 10000 => res("49 msec")
+        case 25000 => res("278 msec")
+        case 50000 => res("1060 msec")
+        case 100000 => res("3863 msec")
+        case _ => Html("")
+    }
+}
+<p>The primes are:</p>
+<textarea name="primes" cols="200" rows="35">@primes._1.mkString(", ")</textarea>
