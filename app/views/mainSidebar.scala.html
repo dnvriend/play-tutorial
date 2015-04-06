@@ -1,0 +1,18 @@
+@**************************************
+* Main page with sidebar
+*
+* @param title The title
+* @param sidebar The sidebar content
+* @param content The main content
+**************************************@
+@(title: String)(sidebar: Html)(content: Html)
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@title</title>
+    </head>
+    <body>
+        <section class="sidebar">@sidebar</section>
+        <section class="content">@content</section>
+    </body>
+</html>

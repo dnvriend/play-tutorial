@@ -1,0 +1,21 @@
+@***************************************
+* Orders overview page
+*
+* @param customer The customer
+* @param orders The sequence of orders
+***************************************@
+@(customer: Customer, orders: Seq[Order])
+
+<h1>Welcome @customer.name!</h1>
+
+@if(orders.isEmpty) {
+    <h2>Nothing to display</h2>
+} else {
+    <h2>@orders.size items!</h2>
+}
+
+<ul>
+@for(order <- orders) {
+    <li>@order.title</li>
+}
+</ul>

@@ -1,0 +1,7 @@
+<ul>
+    @{
+        (1 to 10).foldLeft(HtmlFormat.empty) { (c, i) =>
+            Html(c + s"""<li>item $i</li>""")
+        }
+    }
+</ul>

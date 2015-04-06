@@ -20,3 +20,8 @@ libraryDependencies ++= Seq(
 )
 
 name in Universal := name.value
+
+TwirlKeys.templateImports ++= Seq(
+  "domain._",
+  "tags._"
+)

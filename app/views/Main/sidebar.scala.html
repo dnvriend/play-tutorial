@@ -1,0 +1,27 @@
+@mainSidebar("Home") {
+  <h1>Sidebar</h1>
+  @common.sideBar()
+} {
+  <h1>Home page</h1>
+}
+
+@Seq("success", "warning", "error").foldLeft(HtmlFormat.empty) { (carry, level) =>
+  @carry @tags.notice(level) { color =>
+  Oops, something is <span style="color : @color">wrong</span>
+  }
+}
+
+@Html(Seq("success", "warning", "error").map { level =>
+  tags.notice(level) { color =>
+    Html(s"""Oops, something is <span style="color : $color">wrong</span>""")
+  }
+}.mkString)
+
+@{
+  val htmlStr = Seq("success", "warning", "error").map { level =>
+    tags.notice(level) { color =>
+      Html(s"""Oops, something is <span style="color : $color">wrong</span>""")
+    }
+  }.mkString
+  Html(htmlStr)
+}
