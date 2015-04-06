@@ -3,5 +3,11 @@
 # ~~~~
 
 # Home page
-GET        /user                    controllers.User.editUser
-POST       /user                    controllers.User.postUser
+GET        /first/user                    controllers.User.editUserFirst
+POST       /first/user                    controllers.User.postUserFirst
+
+GET        /second/user                    controllers.User.editUserSecond
+POST       /second/user                    controllers.User.postUserSecond
+
+GET        /third/user                    controllers.User.editUserThird
+POST       /third/user                    controllers.User.postUserThird

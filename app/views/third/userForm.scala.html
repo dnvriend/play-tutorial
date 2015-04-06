@@ -1,0 +1,17 @@
+@(userForm: Form[forms.UserDataMoreFields])
+@import helper._
+
+@helper.form(action = routes.User.postUserThird()) {
+    @inputText(userForm("firstName"))
+    @inputText(userForm("lastName"))
+    @inputText(userForm("age"))
+    @inputText(userForm("tasks"))
+    @inputText(userForm("salary"))
+    @inputDate(userForm("birthDate"))
+    @inputDate(userForm("now"))
+    @inputText(userForm("email"))
+    @checkbox(userForm("employed"))
+    @checkbox(userForm("married"))
+    @checkbox(userForm("optIn"))
+    <input type="submit" value="Submit" />
+}
